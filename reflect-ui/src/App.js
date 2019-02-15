@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
-import { Query } from 'react-apollo'
-import gql from 'graphql-tag'
+
+import SurveyList from './surveys/SurveyList'
 
 import './App.css'
 
@@ -13,41 +14,16 @@ const client = new ApolloClient({
 class App extends Component {
   render() {
     return (
-      <ApolloProvider client={client}>
-        <div className="App">
-          <Query
-            query={gql`
-              {
-                surveys {
-                  id
-                  name
-                  description
-                  surveyType
-                  createdAt
-                  updatedAt
-                  surveySections {
-                    id
-                    name
-                    description
-                    position
-                    surveyQuestions {
-                      id
-                      questionText
-                      type
-                    }
-                  }
-                }
-              }
-            `}
-          >
-            {({ loading, error, data }) => {
-              if (loading) return <p>Loading...</p>
-              if (error) return <p>Error :(</p>
-              return <pre>{JSON.stringify(data.surveys, null, 2)}</pre>
-            }}
-          </Query>
-        </div>
-      </ApolloProvider>
+      <Router>
+        <ApolloProvider client={client}>
+          <div className="App">
+            <Link to="/surveys">
+              <button>See Surveys</button>
+            </Link>
+            <Route exact path="/surveys" component={SurveyList} />
+          </div>
+        </ApolloProvider>
+      </Router>
     )
   }
 }
