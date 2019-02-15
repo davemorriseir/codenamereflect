@@ -1,38 +1,28 @@
 import React from 'react'
+import { Box } from 'grommet'
 import { Query } from 'react-apollo'
-import gql from 'graphql-tag'
+import { SURVEYS_QUERY } from './api/queries'
 
 const SurveyList = () => {
   return (
-    <Query
-      query={gql`
-        {
-          surveys {
-            id
-            name
-            description
-            surveyType
-            createdAt
-            updatedAt
-            surveySections {
-              id
-              name
-              description
-              position
-              surveyQuestions {
-                id
-                questionText
-                type
-              }
-            }
-          }
-        }
-      `}
-    >
+    <Query query={SURVEYS_QUERY}>
       {({ loading, error, data }) => {
         if (loading) return <p>Loading...</p>
         if (error) return <p>Error :(</p>
-        return <pre>{JSON.stringify(data.surveys, null, 2)}</pre>
+        return (
+          <Box
+            tag="header"
+            direction="row"
+            align="center"
+            justify="between"
+            background="brand"
+            pad={{ left: 'medium', right: 'small', vertical: 'small' }}
+            elevation="medium"
+            style={{ zIndex: '1' }}
+          >
+            <pre>{JSON.stringify(data.surveys, null, 2)}</pre>
+          </Box>
+        )
       }}
     </Query>
   )
