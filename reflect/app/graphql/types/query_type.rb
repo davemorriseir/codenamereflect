@@ -8,6 +8,23 @@ module Types
       argument :id, ID, required: true
     end
 
+    field :surveys, [SurveyType], null: false
+    field :survey, SurveyType, null: false do
+      argument :id, ID, required: true
+    end
+
+    def surveys
+      Survey.all
+    end
+
+    def survey(id: nil)
+      if id
+        Survey.find(id)
+      else
+        raise ArgumentError.new "No ID passed to survey query"
+      end
+    end
+
     def users
       User.all
     end
