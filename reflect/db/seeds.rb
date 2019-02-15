@@ -27,8 +27,8 @@ survey_three = Survey.create(name: "Tell me about yourself?", description: "Just
 puts "Creating Survey Sections"
 survey_section_one = survey_two.survey_sections.create(name: "Section A", description: "Just an intro", title: "Welcome", position: 0)
 survey_section_two = survey_one.survey_sections.create(name: "Section 1", description: "Just an intro", title: "Welcome", position: 0)
-survey_section_three = survey_two.survey_sections.create(name: "Section B", description: "Now dig!", title: "And then...?", position: 0)
-survey_section_four = survey_one.survey_sections.create(name: "Section 2", description: "Now dig!", title: "And then...?", position: 0)
+survey_section_three = survey_two.survey_sections.create(name: "Section B", description: "Now dig!", title: "And then...?", position: 1)
+survey_section_four = survey_one.survey_sections.create(name: "Section 2", description: "Now dig!", title: "And then...?", position: 1)
 survey_section_five = survey_three.survey_sections.create(name: "Section ?", description: "Just an intro", title: "Welcome", position: 0)
 
 puts "Creating Survey Questions"
