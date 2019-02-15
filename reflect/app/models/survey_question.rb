@@ -19,6 +19,7 @@
 class SurveyQuestion < ApplicationRecord
   has_many :survey_section_questions
   has_many :survey_sections, through: :survey_section_questions
+  has_many :survey_answers
 
   def has_choice_params?
     self.options_one.present? || self.options_two.present? || self.options_three.present?
