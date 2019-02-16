@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Box, Button, Text, RangeInput } from 'grommet'
+import { FormNext } from 'grommet-icons'
 import { Mutation } from 'react-apollo'
 
 import { CREATE_SURVEY_ANSWER } from './api/queries'
@@ -12,9 +13,6 @@ const RatingQuestion = ({
   onSubmit
 }) => {
   const [selectedOption, setSelectedOption] = useState(null)
-  const ratingOptions = Array.from({ length: 10 }, (val, key) =>
-    String(key + 1)
-  )
 
   return (
     <Mutation mutation={CREATE_SURVEY_ANSWER} onCompleted={onSubmit}>
@@ -22,19 +20,26 @@ const RatingQuestion = ({
         return (
           <Box>
             <Text>{questionText}</Text>
-            <RangeInput
-              max={10}
-              min={1}
-              value={selectedOption}
-              onChange={e => {
-                setSelectedOption(e.target.value)
-              }}
-            />
-            <Text align="center">
-              {selectedOption ? selectedOption : 'Choose from the range above!'}
-            </Text>
+            <Box pad={{ vertical: 'small' }}>
+              <RangeInput
+                max={10}
+                min={1}
+                value={selectedOption}
+                onChange={e => {
+                  setSelectedOption(e.target.value)
+                }}
+              />
+              <Text align="center">
+                {selectedOption
+                  ? selectedOption
+                  : 'Choose from the range above!'}
+              </Text>
+            </Box>
             <Button
-              type="button"
+              primary
+              icon={<FormNext />}
+              reverse
+              alignSelf="end"
               label="Next"
               onClick={() =>
                 createSurveyAnswer({

@@ -27,7 +27,11 @@ const Survey = ({
   const Question = QUESTION_COMPONENT_CONFIG[activeQuestion.type]
 
   return (
-    <Box>
+    <Box
+      background={{ color: 'light-2', opacity: 'strong' }}
+      round
+      pad="medium"
+    >
       <Heading size="small">{name}</Heading>
       <Text>{description}</Text>
       {activeQuestion && (
@@ -39,7 +43,7 @@ const Survey = ({
           }}
         />
       )}
-      <Button label="Cancel" type="reset" onClick={onCancel} />
+      {/* <Button label="Cancel" color="accent-1" type="reset" onClick={onCancel} /> */}
     </Box>
   )
 }

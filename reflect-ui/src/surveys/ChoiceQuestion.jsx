@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Box, Button, Text, RadioButtonGroup } from 'grommet'
+import { FormNext } from 'grommet-icons'
 import { Mutation } from 'react-apollo'
 
 import { CREATE_SURVEY_ANSWER } from './api/queries'
@@ -19,20 +20,25 @@ const ChoiceQuestion = ({
         return (
           <Box>
             <Text>{questionText}</Text>
-            <RadioButtonGroup
-              name="choice_options"
-              options={[
-                { label: optionsOne, value: '3' },
-                { label: optionsTwo, value: '7' },
-                { label: optionsThree, value: '10' }
-              ]}
-              value={selectedOption}
-              onChange={e => {
-                setSelectedOption(e.target.value)
-              }}
-            />
+            <Box pad={{ vertical: 'small' }}>
+              <RadioButtonGroup
+                name="choice_options"
+                options={[
+                  { label: optionsOne, value: '3' },
+                  { label: optionsTwo, value: '7' },
+                  { label: optionsThree, value: '10' }
+                ]}
+                value={selectedOption}
+                onChange={e => {
+                  setSelectedOption(e.target.value)
+                }}
+              />
+            </Box>
             <Button
-              type="button"
+              primary
+              icon={<FormNext />}
+              reverse
+              alignSelf="end"
               label="Next"
               onClick={() =>
                 createSurveyAnswer({

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { Box, Button, Text, TextArea } from 'grommet'
+import { FormNext } from 'grommet-icons'
 import { Mutation } from 'react-apollo'
 
 import { CREATE_SURVEY_ANSWER } from './api/queries'
@@ -19,13 +20,18 @@ const LogQuestion = ({
         return (
           <Box>
             <Text>{questionText}</Text>
-            <TextArea
-              onChange={e => {
-                setCurrentLog(e.target.value)
-              }}
-            />
+            <Box pad={{ vertical: 'small' }}>
+              <TextArea
+                onChange={e => {
+                  setCurrentLog(e.target.value)
+                }}
+              />
+            </Box>
             <Button
-              type="button"
+              primary
+              icon={<FormNext />}
+              reverse
+              alignSelf="end"
               label="Next"
               onClick={() =>
                 createSurveyAnswer({
