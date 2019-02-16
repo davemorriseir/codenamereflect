@@ -20,6 +20,8 @@ const SurveySection = ({
       <Text>{description}</Text>
       {activeQuestion && (
         <Question
+          current={activeQuestionIndex + 1}
+          total={surveyQuestions.length}
           question={activeQuestion}
           surveyId={surveyId}
           onSubmit={() => {
