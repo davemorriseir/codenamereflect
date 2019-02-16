@@ -2,14 +2,18 @@ import React from 'react'
 import { Box, Heading, Text } from 'grommet'
 
 import Question from './Question'
-
-import useListTracker from './hooks/useListTracker'
+import useSafeArrayIndexTracker from './hooks/useSafeArrayIndexTracker'
+import {
+  surveySectionIn,
+  surveySectionTitleIn,
+  surveySectionDescriptionIn
+} from './animations'
 
 const SurveySection = ({
   section: { description, title, surveyQuestions, surveyId },
   onCompleteSection
 }) => {
-  const [activeQuestionIndex, handleNextQuestion] = useListTracker(
+  const [activeQuestionIndex, handleNextQuestion] = useSafeArrayIndexTracker(
     surveyQuestions,
     onCompleteSection
   )
@@ -20,9 +24,14 @@ const SurveySection = ({
       background={{ color: 'light-2', opacity: 'strong' }}
       round
       pad="medium"
+      animation={surveySectionIn}
     >
-      <Heading size="small">{title}</Heading>
-      <Text>{description}</Text>
+      <Box animation={surveySectionTitleIn}>
+        <Heading size="small">{title}</Heading>
+      </Box>
+      <Box animation={surveySectionDescriptionIn}>
+        <Text>{description}</Text>
+      </Box>
       {activeQuestion && (
         <Question
           current={activeQuestionIndex + 1}
