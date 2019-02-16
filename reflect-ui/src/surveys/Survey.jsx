@@ -4,15 +4,23 @@ import { Box, Button, Grid, Heading, Paragraph, Layer, Text } from 'grommet'
 import { Close } from 'grommet-icons'
 import { Query } from 'react-apollo'
 
-import SurveySection from './SurveySection'
 import Loading from '../core/Loading'
 import Error from '../core/Error'
+
+import SurveySection from './SurveySection'
+
+import useListTracker from './hooks/useListTracker'
 
 import { SURVEY_QUERY } from './api/queries'
 
 const Survey = ({ match }) => {
-  const [activeSurveySectionIndex, setActiveSurveySectionIndex] = useState(null)
   const [hasCompletedSurvey, setHasCompletedSurvey] = useState(false)
+  const [
+    activeSurveySectionIndex,
+    setActiveSurveySectionIndex
+  ] = useListTracker(false, () => {
+    setHasCompletedSurvey(true)
+  })
 
   return (
     <Query query={SURVEY_QUERY} variables={{ id: match.params.surveyId }}>
@@ -58,7 +66,7 @@ const Survey = ({ match }) => {
                         alignSelf="center"
                         label="Get started"
                         onClick={() => {
-                          setActiveSurveySectionIndex(0)
+                          setActiveSurveySectionIndex(0, surveySections)
                         }}
                       />
                     </Box>
@@ -66,18 +74,12 @@ const Survey = ({ match }) => {
                   {activeSurveySectionIndex !== null && !hasCompletedSurvey && (
                     <SurveySection
                       section={surveySections[activeSurveySectionIndex]}
-                      onCompleteSection={() => {
-                        const nextActiveSurvey =
-                          surveySections[activeSurveySectionIndex + 1]
-                        if (nextActiveSurvey) {
-                          setActiveSurveySectionIndex(
-                            activeSurveySectionIndex + 1
-                          )
-                        } else {
-                          setActiveSurveySectionIndex(null)
-                          setHasCompletedSurvey(true)
-                        }
-                      }}
+                      onCompleteSection={() =>
+                        setActiveSurveySectionIndex(
+                          activeSurveySectionIndex + 1,
+                          surveySections
+                        )
+                      }
                     />
                   )}
                   {activeSurveySectionIndex === null && hasCompletedSurvey && (

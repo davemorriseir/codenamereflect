@@ -1,13 +1,18 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Box, Heading, Text } from 'grommet'
 
 import Question from './Question'
+
+import useListTracker from './hooks/useListTracker'
 
 const SurveySection = ({
   section: { description, name, surveyQuestions, surveyId },
   onCompleteSection
 }) => {
-  const [activeQuestionIndex, setActiveQuestionIndex] = useState(0)
+  const [activeQuestionIndex, handleNextQuestion] = useListTracker(
+    surveyQuestions,
+    onCompleteSection
+  )
   const activeQuestion = surveyQuestions[activeQuestionIndex]
 
   return (
@@ -24,15 +29,9 @@ const SurveySection = ({
           total={surveyQuestions.length}
           question={activeQuestion}
           surveyId={surveyId}
-          onSubmit={() => {
-            const nextActiveQuestion = surveyQuestions[activeQuestionIndex + 1]
-            if (nextActiveQuestion) {
-              setActiveQuestionIndex(activeQuestionIndex + 1)
-            } else {
-              onCompleteSection()
-              setActiveQuestionIndex(0)
-            }
-          }}
+          onSubmit={() =>
+            handleNextQuestion(activeQuestionIndex + 1, surveyQuestions)
+          }
         />
       )}
     </Box>
