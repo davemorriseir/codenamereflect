@@ -5,7 +5,9 @@ const COLORS = {
   focus: '#A682FF',
   placeholder: '#93867F',
   white: '#FDFFFE',
-  background: '#A271BE'
+  sidebar: '#A271BE',
+  background: '#A271BE',
+  header: '#593E68'
 }
 
 export const THEME = {

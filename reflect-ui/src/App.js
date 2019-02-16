@@ -22,7 +22,7 @@ class App extends Component {
       <Router>
         <ApolloProvider client={client}>
           <Grommet full theme={THEME}>
-            <Box background="background" fill="vertical">
+            <Box background="white" fill="vertical">
               <Grid
                 fill="vertical"
                 rows={['auto', 'flex']}
@@ -37,7 +37,7 @@ class App extends Component {
                 <Sidebar />
                 <Box gridArea="main" justify="center" align="center">
                   <Route exact path="/" component={TakeSurveyButton} />
-                  <Route path="/surveys/1" component={Survey} />
+                  <Route path="/surveys/:surveyId" component={Survey} />
                 </Box>
               </Grid>
             </Box>

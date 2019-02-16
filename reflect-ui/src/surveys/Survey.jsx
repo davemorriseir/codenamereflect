@@ -12,8 +12,9 @@ const Survey = ({ match }) => {
   const [activeSurveySectionIndex, setActiveSurveySectionIndex] = useState(null)
   const [hasCompletedSurvey, setHasCompletedSurvey] = useState(false)
 
+  console.log(match)
   return (
-    <Query query={SURVEY_QUERY} variables={{ id: 1 }}>
+    <Query query={SURVEY_QUERY} variables={{ id: match.params.surveyId }}>
       {({ loading, error, data }) => {
         if (loading) return <p>Loading...</p>
         if (error) return <p>Error :(</p>

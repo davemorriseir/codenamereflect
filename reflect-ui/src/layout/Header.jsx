@@ -8,10 +8,10 @@ const Header = props => {
       direction="row"
       align="center"
       justify="between"
-      pad={{ horizontal: 'medium', vertical: 'small' }}
-      background="dark-2"
+      pad={{ horizontal: 'medium' }}
+      background="header"
     >
-      <Heading>Codename Reflect</Heading>
+      <Heading level={4}>Codename Reflect</Heading>
     </Box>
   )
 }

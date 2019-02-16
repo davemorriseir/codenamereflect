@@ -5,7 +5,7 @@ const Sidebar = props => {
   return (
     <Box
       gridArea="sidebar"
-      background="dark-3"
+      background="sidebar"
       width="small"
       fill="vertical"
       animation={[
