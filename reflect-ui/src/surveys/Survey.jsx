@@ -64,23 +64,21 @@ const Survey = ({ match }) => {
                     </Box>
                   )}
                   {activeSurveySectionIndex !== null && !hasCompletedSurvey && (
-                    <Box>
-                      <SurveySection
-                        section={surveySections[activeSurveySectionIndex]}
-                        onCompleteSection={() => {
-                          const nextActiveSurvey =
-                            surveySections[activeSurveySectionIndex + 1]
-                          if (nextActiveSurvey) {
-                            setActiveSurveySectionIndex(
-                              activeSurveySectionIndex + 1
-                            )
-                          } else {
-                            setActiveSurveySectionIndex(null)
-                            setHasCompletedSurvey(true)
-                          }
-                        }}
-                      />
-                    </Box>
+                    <SurveySection
+                      section={surveySections[activeSurveySectionIndex]}
+                      onCompleteSection={() => {
+                        const nextActiveSurvey =
+                          surveySections[activeSurveySectionIndex + 1]
+                        if (nextActiveSurvey) {
+                          setActiveSurveySectionIndex(
+                            activeSurveySectionIndex + 1
+                          )
+                        } else {
+                          setActiveSurveySectionIndex(null)
+                          setHasCompletedSurvey(true)
+                        }
+                      }}
+                    />
                   )}
                   {activeSurveySectionIndex === null && hasCompletedSurvey && (
                     <Text>Congrats! You've completed the survey!</Text>
