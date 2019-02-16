@@ -6,7 +6,10 @@ import { useState } from 'react'
  * @param {*} setInitialIndexValue
  * @param {*} overflowCallback called when the next item in the list does not exist
  */
-const useListTracker = (setInitialIndexValue = true, overflowCallback) => {
+const useSafeArrayIndexTracker = (
+  setInitialIndexValue = true,
+  overflowCallback
+) => {
   const [currentIndex, setCurrentIndex] = useState(
     setInitialIndexValue ? 0 : null
   )
@@ -23,4 +26,4 @@ const useListTracker = (setInitialIndexValue = true, overflowCallback) => {
   return [currentIndex, setCurrentActiveIndex]
 }
 
-export default useListTracker
+export default useSafeArrayIndexTracker

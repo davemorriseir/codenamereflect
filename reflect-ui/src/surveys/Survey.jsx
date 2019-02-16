@@ -12,22 +12,20 @@ import {
 } from 'grommet'
 import { Close } from 'grommet-icons'
 import { Query } from 'react-apollo'
-
 import Loading from '../core/Loading'
 import Error from '../core/Error'
 
 import SurveySection from './SurveySection'
-
-import useListTracker from './hooks/useListTracker'
-
+import useSafeArrayIndexTracker from './hooks/useSafeArrayIndexTracker'
 import { SURVEY_QUERY } from './api/queries'
+import { surveyTitleIn, surveyDescriptionIn } from './animations'
 
 const Survey = ({ match }) => {
   const [hasCompletedSurvey, setHasCompletedSurvey] = useState(false)
   const [
     activeSurveySectionIndex,
     setActiveSurveySectionIndex
-  ] = useListTracker(false, () => {
+  ] = useSafeArrayIndexTracker(false, () => {
     setHasCompletedSurvey(true)
   })
 
@@ -71,10 +69,14 @@ const Survey = ({ match }) => {
                   <Box
                     pad={{ bottom: 'small' }}
                     margin={{ bottom: 'small' }}
-                    border="bottom"
+                    animation="slideRight"
                   >
-                    <Heading level={3}>{name}</Heading>
-                    <Paragraph>{description}</Paragraph>
+                    <Box animation={surveyTitleIn}>
+                      <Heading level={3}>{name}</Heading>
+                    </Box>
+                    <Box animation={surveyDescriptionIn}>
+                      <Paragraph>{description}</Paragraph>
+                    </Box>
                   </Box>
                   <Box pad={{ horizontal: '10rem' }}>
                     {activeSurveySectionIndex === null && !hasCompletedSurvey && (
