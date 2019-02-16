@@ -1,15 +1,7 @@
 import React, { useState } from 'react'
-import { Box, Button, Heading, Text } from 'grommet'
+import { Box, Heading, Text } from 'grommet'
 
-import LogQuestion from './LogQuestion'
-import ChoiceQuestion from './ChoiceQuestion'
-import RatingQuestion from './RatingQuestion'
-
-const QUESTION_COMPONENT_CONFIG = {
-  SurveyChoiceQuestion: ChoiceQuestion,
-  SurveyRatingQuestion: RatingQuestion,
-  SurveyLogQuestion: LogQuestion
-}
+import Question from './Question'
 
 const SurveySection = ({
   section: { description, name, surveyQuestions, surveyId },
@@ -17,7 +9,6 @@ const SurveySection = ({
 }) => {
   const [activeQuestionIndex, setActiveQuestionIndex] = useState(0)
   const activeQuestion = surveyQuestions[activeQuestionIndex]
-  const Question = QUESTION_COMPONENT_CONFIG[activeQuestion.type]
 
   return (
     <Box
