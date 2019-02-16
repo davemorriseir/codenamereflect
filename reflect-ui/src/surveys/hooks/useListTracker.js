@@ -3,25 +3,24 @@ import { useState } from 'react'
 /**
  * Hook to Manage navigationg through survey sections and questions
  * in the Survey System
- * @param {*} list
  * @param {*} setInitialIndexValue
- * @param {*} completeCallback
+ * @param {*} overflowCallback called when the next item in the list does not exist
  */
-const useActiveSurveyItem = (setInitialIndexValue = true, completeCallback) => {
+const useListTracker = (setInitialIndexValue = true, overflowCallback) => {
   const [currentIndex, setCurrentIndex] = useState(
     setInitialIndexValue ? 0 : null
   )
 
-  const setCurrentActiveItem = (index, list) => {
+  const setCurrentActiveIndex = (index, list) => {
     if (list[index]) {
       setCurrentIndex(index)
     } else {
-      completeCallback()
+      overflowCallback()
       setCurrentIndex(setInitialIndexValue ? 0 : null)
     }
   }
 
-  return [currentIndex, setCurrentActiveItem]
+  return [currentIndex, setCurrentActiveIndex]
 }
 
-export default useActiveSurveyItem
+export default useListTracker
