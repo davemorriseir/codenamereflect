@@ -10,8 +10,15 @@ const COLORS = {
   header: '#593E68'
 }
 
+const PARAGRAPH = {
+  medium: {
+    maxWidth: '750px'
+  }
+}
+
 export const THEME = {
   global: {
     colors: { ...COLORS }
-  }
+  },
+  paragraph: { ...PARAGRAPH }
 }

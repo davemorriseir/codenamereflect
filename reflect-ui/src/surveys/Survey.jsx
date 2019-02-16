@@ -1,6 +1,15 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { Box, Button, Grid, Heading, Paragraph, Layer, Text } from 'grommet'
+import {
+  Box,
+  Button,
+  Grid,
+  Heading,
+  Paragraph,
+  Layer,
+  Text,
+  ThemeContext
+} from 'grommet'
 import { Close } from 'grommet-icons'
 import { Query } from 'react-apollo'
 
@@ -37,56 +46,68 @@ const Survey = ({ match }) => {
               rows={['small', 'xlarge']}
               gap="xlarge"
             >
-              <Box
-                gridArea="main"
-                background="background"
-                fill
-                pad={{ horizontal: '10rem' }}
+              <ThemeContext.Extend
+                value={{
+                  heading: {
+                    extend: {
+                      marginBlockEnd: '10px'
+                    }
+                  }
+                }}
               >
-                <Layer position="top-right" modal={false}>
-                  <Box pad="small" background="background">
-                    <Link to="/">
-                      <Close />
-                    </Link>
-                  </Box>
-                </Layer>
                 <Box
-                  pad={{ bottom: 'small' }}
-                  margin={{ bottom: 'small' }}
-                  border="bottom"
+                  gridArea="main"
+                  background="background"
+                  fill
+                  pad={{ horizontal: '10rem' }}
                 >
-                  <Heading level={3}>{name}</Heading>
-                  <Paragraph>{description}</Paragraph>
-                </Box>
-                <Box pad={{ horizontal: '10rem' }}>
-                  {activeSurveySectionIndex === null && !hasCompletedSurvey && (
-                    <Box pad={{ vertical: 'large' }}>
-                      <Button
-                        primary
-                        alignSelf="center"
-                        label="Get started"
-                        onClick={() => {
-                          setActiveSurveySectionIndex(0, surveySections)
-                        }}
-                      />
+                  <Layer position="top-right" modal={false}>
+                    <Box pad="small" background="background">
+                      <Link to="/">
+                        <Close />
+                      </Link>
                     </Box>
-                  )}
-                  {activeSurveySectionIndex !== null && !hasCompletedSurvey && (
-                    <SurveySection
-                      section={surveySections[activeSurveySectionIndex]}
-                      onCompleteSection={() =>
-                        setActiveSurveySectionIndex(
-                          activeSurveySectionIndex + 1,
-                          surveySections
-                        )
-                      }
-                    />
-                  )}
-                  {activeSurveySectionIndex === null && hasCompletedSurvey && (
-                    <Text>Congrats! You've completed the survey!</Text>
-                  )}
+                  </Layer>
+                  <Box
+                    pad={{ bottom: 'small' }}
+                    margin={{ bottom: 'small' }}
+                    border="bottom"
+                  >
+                    <Heading level={3}>{name}</Heading>
+                    <Paragraph>{description}</Paragraph>
+                  </Box>
+                  <Box pad={{ horizontal: '10rem' }}>
+                    {activeSurveySectionIndex === null && !hasCompletedSurvey && (
+                      <Box pad={{ vertical: 'large' }}>
+                        <Button
+                          primary
+                          alignSelf="center"
+                          label="Get started"
+                          onClick={() => {
+                            setActiveSurveySectionIndex(0, surveySections)
+                          }}
+                        />
+                      </Box>
+                    )}
+                    {activeSurveySectionIndex !== null &&
+                      !hasCompletedSurvey && (
+                        <SurveySection
+                          section={surveySections[activeSurveySectionIndex]}
+                          onCompleteSection={() =>
+                            setActiveSurveySectionIndex(
+                              activeSurveySectionIndex + 1,
+                              surveySections
+                            )
+                          }
+                        />
+                      )}
+                    {activeSurveySectionIndex === null &&
+                      hasCompletedSurvey && (
+                        <Text>Congrats! You've completed the survey!</Text>
+                      )}
+                  </Box>
                 </Box>
-              </Box>
+              </ThemeContext.Extend>
             </Grid>
           </Layer>
         )

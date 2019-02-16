@@ -6,7 +6,7 @@ import Question from './Question'
 import useListTracker from './hooks/useListTracker'
 
 const SurveySection = ({
-  section: { description, name, surveyQuestions, surveyId },
+  section: { description, title, surveyQuestions, surveyId },
   onCompleteSection
 }) => {
   const [activeQuestionIndex, handleNextQuestion] = useListTracker(
@@ -21,7 +21,7 @@ const SurveySection = ({
       round
       pad="medium"
     >
-      <Heading size="small">{name}</Heading>
+      <Heading size="small">{title}</Heading>
       <Text>{description}</Text>
       {activeQuestion && (
         <Question

@@ -46,4 +46,51 @@ survey_section_three.survey_questions.create(question_text: "What did you do?" ,
 survey_section_four.survey_questions.create(question_text: "What did you do?" , type: "SurveyRatingQuestion", range_lower: 1, range_upper: 10)
 
 
+puts "Creating Real Survey"
+real_demo_survey = Survey.create(
+  name: "Your Daily Check-In",
+  description: "Don't sweat it! We just want to check in with you for two minutes every day to find out how you're feeling. This will be a simple list of questions, and will mostly be multiple choice. Try not to think to much about it :)",
+  survey_type: "daily"
+)
+
+puts "RealSurveyID: #{real_demo_survey.id}"
+puts "Creating Survey Sections"
+real_section_one = real_demo_survey.survey_sections.create(
+  name: "Step1", 
+  title: "Tell me about your day",
+  description: "How have you been? Sleep, Diet, and Physical activity can have a massive influence on how you feel!",
+  position: 0  
+)
+real_section_two = real_demo_survey.survey_sections.create(
+  name: "Step2", 
+  title: "Now let's rate your emotions and feelings...",
+  description: "We all go through many different emotions during the day and it's important to be conscious of what we're feeling. Rate, out of one to ten, the different emotions presented to you.",
+  position: 0  
+)
+real_section_three = real_demo_survey.survey_sections.create(
+  name: "Step3", 
+  title: "In your own words...",
+  description: "Nobody can put it better than you! Write, in your own words, how you feel today went. We'll do our best to analyze the text and raise commong points of discomfort or happiness.",
+  position: 0  
+)
+
+real_section_one.survey_questions.create(question_text: "How did you sleep last night?" , type: "SurveyChoiceQuestion", options_one: "I slept pretty well!", options_two: "It was ok, could have been better", options_three: "Barely got a wink")
+real_section_one.survey_questions.create(question_text: "How was your diet today?" , type: "SurveyChoiceQuestion", options_one: "Excellent!", options_two: "Could have eaten better, but not too bad", options_three: "Needed more nutrients")
+real_section_one.survey_questions.create(question_text: "How physical were you today?" , type: "SurveyChoiceQuestion", options_one: "Very physical!", options_two: "Could have done more", options_three: "I barely moved")
+
+real_section_two.survey_questions.create(question_text: "How Angry were you today?" , type: "SurveyRatingQuestion")
+real_section_two.survey_questions.create(question_text: "How Sad were you today?" , type: "SurveyRatingQuestion")
+real_section_two.survey_questions.create(question_text: "How Motivated did you feel today?" , type: "SurveyRatingQuestion")
+real_section_two.survey_questions.create(question_text: "How Disciplined did you feel today?" , type: "SurveyRatingQuestion")
+real_section_two.survey_questions.create(question_text: "How Sensitive were you today?" , type: "SurveyRatingQuestion")
+real_section_two.survey_questions.create(question_text: "How Happy were you today?" , type: "SurveyRatingQuestion")
+real_section_two.survey_questions.create(question_text: "How much Energy did you have today?" , type: "SurveyRatingQuestion")
+
+real_section_three.survey_questions.create(question_text: "Let it all out!", type: "SurveyLogQuestion")
+
+
+
+
+
+
 
