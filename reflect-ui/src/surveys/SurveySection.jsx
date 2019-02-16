@@ -11,19 +11,12 @@ const QUESTION_COMPONENT_CONFIG = {
   SurveyLogQuestion: LogQuestion
 }
 
-const Survey = ({
+const SurveySection = ({
   section: { description, name, surveyQuestions, surveyId },
-  onCancel,
-  onCompleteSection,
-  match
+  onCompleteSection
 }) => {
   const [activeQuestionIndex, setActiveQuestionIndex] = useState(0)
   const activeQuestion = surveyQuestions[activeQuestionIndex]
-  if (!activeQuestion) {
-    onCompleteSection()
-    return null
-  }
-
   const Question = QUESTION_COMPONENT_CONFIG[activeQuestion.type]
 
   return (
@@ -39,13 +32,18 @@ const Survey = ({
           question={activeQuestion}
           surveyId={surveyId}
           onSubmit={() => {
-            setActiveQuestionIndex(activeQuestionIndex + 1)
+            const nextActiveQuestion = surveyQuestions[activeQuestionIndex + 1]
+            if (nextActiveQuestion) {
+              setActiveQuestionIndex(activeQuestionIndex + 1)
+            } else {
+              onCompleteSection()
+              setActiveQuestionIndex(0)
+            }
           }}
         />
       )}
-      {/* <Button label="Cancel" color="accent-1" type="reset" onClick={onCancel} /> */}
     </Box>
   )
 }
 
-export default Survey
+export default SurveySection

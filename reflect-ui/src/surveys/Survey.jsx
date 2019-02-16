@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Box, Button, Grid, Heading, Layer, Text } from 'grommet'
+import { Close } from 'grommet-icons'
 import { Query } from 'react-apollo'
 
 import SurveySection from './SurveySection'
@@ -7,7 +9,7 @@ import SurveySection from './SurveySection'
 import { SURVEY_QUERY } from './api/queries'
 
 const Survey = ({ match }) => {
-  const [activeSurveySection, setActiveSurveySection] = useState(null)
+  const [activeSurveySectionIndex, setActiveSurveySectionIndex] = useState(null)
   const [hasCompletedSurvey, setHasCompletedSurvey] = useState(false)
 
   return (
@@ -16,7 +18,7 @@ const Survey = ({ match }) => {
         if (loading) return <p>Loading...</p>
         if (error) return <p>Error :(</p>
 
-        const { name, description } = data.survey
+        const { name, description, surveySections } = data.survey
         return (
           <Layer full>
             <Grid
@@ -31,38 +33,46 @@ const Survey = ({ match }) => {
                 fill
                 pad={{ horizontal: '10rem' }}
               >
+                <Layer position="top-right" modal={false}>
+                  <Box pad="small" background="background">
+                    <Link to="/">
+                      <Close />
+                    </Link>
+                  </Box>
+                </Layer>
                 <Heading>{name}</Heading>
                 <Text>{description}</Text>
                 <Box pad={{ horizontal: '10rem' }}>
-                  {!activeSurveySection && !hasCompletedSurvey && (
-                    <Button
-                      label="Get started"
-                      onClick={() => {
-                        setActiveSurveySection(data.survey.surveySections[0])
-                      }}
-                    />
+                  {activeSurveySectionIndex === null && !hasCompletedSurvey && (
+                    <Box pad={{ vertical: 'large' }}>
+                      <Button
+                        primary
+                        alignSelf="center"
+                        label="Get started"
+                        onClick={() => {
+                          setActiveSurveySectionIndex(0)
+                        }}
+                      />
+                    </Box>
                   )}
-                  {activeSurveySection && !hasCompletedSurvey && (
+                  {activeSurveySectionIndex !== null && !hasCompletedSurvey && (
                     <SurveySection
-                      section={activeSurveySection}
+                      section={surveySections[activeSurveySectionIndex]}
                       onCompleteSection={() => {
                         const nextActiveSurvey =
-                          data.survey.surveySections[
-                            activeSurveySection.position + 1
-                          ]
+                          surveySections[activeSurveySectionIndex + 1]
                         if (nextActiveSurvey) {
-                          setActiveSurveySection(nextActiveSurvey)
+                          setActiveSurveySectionIndex(
+                            activeSurveySectionIndex + 1
+                          )
                         } else {
-                          setActiveSurveySection(null)
+                          setActiveSurveySectionIndex(null)
                           setHasCompletedSurvey(true)
                         }
                       }}
-                      onCancel={() => {
-                        setActiveSurveySection(null)
-                      }}
                     />
                   )}
-                  {!activeSurveySection && hasCompletedSurvey && (
+                  {activeSurveySectionIndex === null && hasCompletedSurvey && (
                     <Text>Congrats! You've completed the survey!</Text>
                   )}
                 </Box>
