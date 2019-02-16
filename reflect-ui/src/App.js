@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import ApolloClient from 'apollo-boost'
 import { ApolloProvider } from 'react-apollo'
-import { Box, Button, Grid, Grommet } from 'grommet'
+import { Box, Grid, Grommet } from 'grommet'
 
 import Sidebar from './layout/Sidebar'
 import Header from './layout/Header'
 
-import SurveyList from './surveys/SurveyList'
+import Survey from './surveys/Survey'
+import TakeSurveyButton from './surveys/TakeSurveyButton'
 
 const client = new ApolloClient({
   uri: '/graphql'
@@ -32,18 +33,8 @@ class App extends Component {
               <Header />
               <Sidebar />
               <Box gridArea="main" justify="center" align="center">
-                <Route
-                  exact
-                  path="/"
-                  component={() => {
-                    return (
-                      <Link to="/surveys">
-                        <Button fill>See Surveys</Button>
-                      </Link>
-                    )
-                  }}
-                />
-                <Route path="/surveys" component={SurveyList} />
+                <Route exact path="/" component={TakeSurveyButton} />
+                <Route path="/surveys/1" component={Survey} />
               </Box>
             </Grid>
           </Grommet>
