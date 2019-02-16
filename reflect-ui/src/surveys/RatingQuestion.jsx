@@ -7,7 +7,7 @@ const RatingQuestion = ({ onChange, value }) => {
       <RangeInput
         max={10}
         min={1}
-        value={value}
+        value={value || 1}
         onChange={e => {
           onChange(e.target.value)
         }}
