@@ -22,7 +22,7 @@ const TakeSurveyButton = () => {
       >
         <Task size="large" />
         <Text>Take Survey</Text>
-        <Link to="/surveys/1">
+        <Link to="/surveys/4">
           <Button label="Let's Go!" />
         </Link>
       </Box>

@@ -35,7 +35,7 @@ export const SURVEY_QUERY = gql`
       updatedAt
       surveySections {
         id
-        name
+        title
         description
         position
         surveyId

@@ -43,7 +43,13 @@ const Question = ({ question, surveyId, current, total, onSubmit }) => {
         const { id, questionText } = question
         return (
           <Box>
-            <Text>{questionText}</Text>
+            <Text
+              size="large"
+              weight="bold"
+              margin={{ top: 'medium', bottom: 'small' }}
+            >
+              {questionText}
+            </Text>
             <Box pad={{ vertical: 'small' }}>
               <Question
                 question={question}
