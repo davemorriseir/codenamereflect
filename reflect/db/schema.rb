@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20190215130218) do
+ActiveRecord::Schema.define(version: 20190224183538) do
+
+  create_table "log_entry_labels", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.string   "value"
+    t.boolean  "sentiment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "log_label_links", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.integer  "survey_log_question_id"
+    t.integer  "log_entry_label_id"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["log_entry_label_id"], name: "index_log_label_links_on_log_entry_label_id", using: :btree
+    t.index ["survey_log_question_id"], name: "index_log_label_links_on_survey_log_question_id", using: :btree
+  end
 
   create_table "survey_answers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.integer  "survey_id"

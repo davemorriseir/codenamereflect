@@ -23,6 +23,11 @@ gem 'puma', '~> 3.0'
 gem 'graphql'
 gem "graphiql-rails"
 
+# manage env variables
+gem 'dotenv-rails', :groups => [:development, :test]
+
+gem 'google-cloud-language'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

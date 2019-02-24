@@ -17,6 +17,8 @@
 #
 
 class SurveyLogQuestion < SurveyQuestion
+  has_many :log_label_links
+  has_many :log_entry_labels, through: :log_label_links
   validate :validate_params
 
   def validate_params
